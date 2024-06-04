@@ -49,3 +49,67 @@ Join our community of developers creating universal apps.
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 # deat
+```
+deat-fe
+├─ App.tsx
+├─ README.md
+├─ app
+│  ├─ (tabs)
+│  │  ├─ _layout.tsx
+│  │  ├─ favorites.tsx
+│  │  ├─ home.tsx
+│  │  ├─ orders.tsx
+│  │  ├─ profile.tsx
+│  │  ├─ search.tsx
+│  │  └─ store.tsx
+│  ├─ +html.tsx
+│  ├─ +not-found.tsx
+│  └─ _layout.tsx
+├─ app.json
+├─ assets
+│  ├─ fonts
+│  │  └─ SpaceMono-Regular.ttf
+│  └─ images
+│     ├─ adaptive-icon.png
+│     ├─ favicon.png
+│     ├─ icon.png
+│     ├─ partial-react-logo.png
+│     ├─ react-logo.png
+│     ├─ react-logo@2x.png
+│     ├─ react-logo@3x.png
+│     └─ splash.png
+├─ babel.config.js
+├─ components
+│  ├─ Collapsible.tsx
+│  ├─ ExternalLink.tsx
+│  ├─ HelloWave.tsx
+│  ├─ ParallaxScrollView.tsx
+│  ├─ ThemedText.tsx
+│  ├─ ThemedView.tsx
+│  ├─ __tests__
+│  │  ├─ ThemedText-test.tsx
+│  │  └─ __snapshots__
+│  │     └─ ThemedText-test.tsx.snap
+│  └─ navigation
+│     ├─ Header.tsx
+│     └─ TabBarIcon.tsx
+├─ constants
+│  └─ Colors.ts
+├─ contexts
+│  └─ AuthContext.tsx
+├─ hooks
+│  ├─ useColorScheme.ts
+│  ├─ useColorScheme.web.ts
+│  └─ useThemeColor.ts
+├─ package-lock.json
+├─ package.json
+├─ screens
+│  ├─ login.tsx
+│  └─ signup.tsx
+├─ scripts
+│  └─ reset-project.js
+├─ tsconfig.json
+└─ types
+   └─ navigation.ts
+
+```

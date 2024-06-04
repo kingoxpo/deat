@@ -1,19 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 
-
 export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>먹자</Text>
-      </View>
-
       {/* Banner */}
       <View style={styles.bannerContainer}>
         <Image
-          source={{ uri: 'https://example.com/banner.jpg' }}
+          source={{ uri: 'https://store.img11.co.kr/64080781/ba22b81b-898f-4f97-8373-bc874612c8c0_1717472874064.png' }}
           style={styles.bannerImage}
         />
       </View>
@@ -51,6 +45,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  homeButton: {
+    position: 'absolute',
+    right: 20,
   },
   stepContainer: {
     gap: 8,
