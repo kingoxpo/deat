@@ -1,25 +1,28 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { useRoute, RouteProp } from '@react-navigation/native';
-import { useStoreStore } from '@/src/stores/useStoreStore';
-import Config from 'react-native-config';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { StoreScreenNavigationProp } from '../../types/navigation';
 
-type StoreScreenRouteProp = RouteProp<{ StoreScreen: { categoryCode: number } }, 'StoreScreen'>;
+import { useStoreStore } from '@/src/stores/useStoreStore';
+
+type StoreScreenRouteProp = RouteProp<{ store: { categoryCode: number } }, 'store'>;
 
 const StoreScreen: React.FC = () => {
   const route = useRoute<StoreScreenRouteProp>();
+  const navigation = useNavigation<StoreScreenNavigationProp>();
+
+  console.log(route, '--route---')
   const { categoryCode } = route.params;
   const { stores, loading, error, fetchStores } = useStoreStore((state) => state);
 
-  console.log(stores, '--stores');
   useEffect(() => {
     fetchStores(categoryCode);
   }, [categoryCode]);
 
   const renderItem = ({ item }: { item: any }) => (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('StoreDetail', { store: item })}>
       <Text style={styles.cardText}>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   if (loading) {
@@ -37,7 +40,7 @@ const StoreScreen: React.FC = () => {
   return (
     <FlatList
       data={stores}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.key}
       renderItem={renderItem}
     />
   );

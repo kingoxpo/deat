@@ -19,8 +19,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const goStore = (cate_code: number) => {
-    console.log(cate_code, '--catecode--');
-    navigation.navigate('StoreScreen', { categoryCode: cate_code });
+    navigation.navigate('store', { categoryCode: cate_code });
   };
 
   return (

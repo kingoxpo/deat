@@ -11,5 +11,4 @@ const settings = {
 
 const currentSettings = settings[Config.ENV as keyof typeof settings] || settings.development;
 
-console.log(currentSettings, '--currentSettings--');
 export default { ...currentSettings };

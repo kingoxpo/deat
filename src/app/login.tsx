@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, Input, Text, VStack, FormControl, WarningOutlineIcon } from 'native-base';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAuth } from '../../src/contexts/AuthContext';
-import { AuthList } from '../types/navigation';
+import { useAuth } from '@/src/contexts/AuthContext';
+import { AuthList } from '@/src/types/navigation';
 
 type Props = NativeStackScreenProps<AuthList, 'Login'>;
 
