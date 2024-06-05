@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
 import { Box, Button, Input, Text, VStack, FormControl, WarningOutlineIcon } from 'native-base';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../src/contexts/AuthContext';
 import { AuthList } from '../types/navigation';
 
-type Props = NativeStackScreenProps<AuthList, 'Signup'>;
+type Props = NativeStackScreenProps<AuthList, 'Login'>;
 
-const SignupScreen: React.FC<Props> = ({ navigation }) => {
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignup = () => {
-    // 여기에 회원가입 로직을 추가하세요.
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-    } else {
-      // 회원가입 성공 후 로그인 상태로 변경
+  const handleLogin = () => {
+    // 여기에 인증 로직을 추가하세요.
+    if (email === 'test@example.com' && password === 'password') {
       login();
+    } else {
+      setError('Invalid email or password');
     }
   };
 
   return (
     <Box flex={1} p={4} justifyContent="center">
       <VStack space={4} alignItems="center">
-        <Text fontSize="2xl" fontWeight="bold">Sign Up</Text>
+        <Text fontSize="2xl" fontWeight="bold">Login</Text>
         <FormControl isInvalid={!!error}>
           <Input
             placeholder="Email"
@@ -41,28 +39,21 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
             onChangeText={setPassword}
             type="password"
           />
-          <Input
-            mt={4}
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            type="password"
-          />
           {error ? (
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
               {error}
             </FormControl.ErrorMessage>
           ) : null}
         </FormControl>
-        <Button onPress={handleSignup} mt={4} w="100%">
-          Sign Up
+        <Button onPress={handleLogin} mt={4} w="100%">
+          Login
         </Button>
-        <Button variant="link" onPress={() => navigation.navigate('Login')}>
-          Already have an account? Login
+        <Button variant="link" onPress={() => navigation.navigate('Signup')}>
+          Don't have an account? Sign up
         </Button>
       </VStack>
     </Box>
   );
 };
 
-export default SignupScreen;
+export default LoginScreen;

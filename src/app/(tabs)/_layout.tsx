@@ -1,38 +1,25 @@
-import { Tabs, useNavigation, useFocusEffect } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { Tabs } from 'expo-router';
+import React from 'react';
 
-import Header from '@/components/navigation/Header'; // 커스텀 헤더 컴포넌트를 임포트합니다.
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '@/types/navigation';
+import Header from '@/src/components/navigation/Header'; // 커스텀 헤더 컴포넌트를 임포트합니다.
+import { TabBarIcon } from '@/src/components/navigation/TabBarIcon';
+import { Colors } from '@/src/constants/Colors';
+import { useColorScheme } from '@/src/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  const [showHomeButton, setShowHomeButton] = useState(false);
-
-  useFocusEffect(
-    useCallback(() => {
-      const route = navigation.getState().routes[navigation.getState().index];
-      setShowHomeButton(route.name !== 'home');
-    }, [navigation])
-  );
 
   return (
     <>
       <Header title="먹자" />
       <Tabs
-        initialRouteName="home"
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
         }}
       >
         <Tabs.Screen
-          name="home"
+          name="index"
           options={{
             title: '홈',
             tabBarButton: () => null, // 탭에서 제외
@@ -48,7 +35,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="store"
+          name="StoreScreen"
           options={{
             title: '스토어',
             tabBarIcon: ({ color, focused }) => (

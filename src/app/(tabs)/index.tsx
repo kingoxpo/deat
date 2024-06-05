@@ -1,7 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@/src/types/navigation';
 
 export default function HomeScreen() {
+
+  const categories = [
+    { cate_name: '치킨', cate_code: 1 },
+    { cate_name: '피자', cate_code: 2 },
+    { cate_name: '한식', cate_code: 3 },
+    { cate_name: '중식', cate_code: 4 },
+    { cate_name: '일식', cate_code: 5 },
+    { cate_name: '양식', cate_code: 6 },
+    { cate_name: '분식', cate_code: 7 },
+    { cate_name: '카페', cate_code: 8 },
+  ];
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const goStore = (cate_code: number) => {
+    console.log(cate_code, '--catecode--');
+    navigation.navigate('StoreScreen', { categoryCode: cate_code });
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Banner */}
@@ -14,9 +35,9 @@ export default function HomeScreen() {
 
       {/* Category Menu */}
       <View style={styles.categoryMenu}>
-        {['치킨', '피자', '한식', '중식', '일식', '양식', '분식', '카페'].map((category, index) => (
-          <TouchableOpacity key={index} style={styles.categoryItem}>
-            <Text style={styles.categoryText}>{category}</Text>
+        {categories.map((category, index) => (
+          <TouchableOpacity key={index} style={styles.categoryItem} onPress={() => goStore(category.cate_code)}>
+            <Text style={styles.categoryText}>{category.cate_name}</Text>
           </TouchableOpacity>
         ))}
       </View>
