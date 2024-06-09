@@ -11,7 +11,7 @@ export default function TabLayout() {
 
   return (
     <>
-      <Header title="먹자" />
+      <Header title="DEAT" />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,

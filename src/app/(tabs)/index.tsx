@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/src/types/navigation';
+import useLocation from '@/src/stores/useLocation';
 
 export default function HomeScreen() {
-
   const categories = [
     { cate_name: '치킨', cate_code: 1 },
     { cate_name: '피자', cate_code: 2 },
@@ -17,6 +17,12 @@ export default function HomeScreen() {
   ];
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  // 위치정보
+  const { location, errorMsg, requestLocation } = useLocation();
+  useEffect(() => {
+    requestLocation();
+  }, []);
 
   const goStore = (cate_code: number) => {
     navigation.navigate('store', { categoryCode: cate_code });
@@ -102,6 +108,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     borderRadius: 10,
+  },
+  locationContainer: {
+    padding: 15,
   },
   categoryMenu: {
     flexDirection: 'row',

@@ -2,18 +2,16 @@ import React, { useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { StoreScreenNavigationProp } from '../../types/navigation';
+import useStore from '@/src/stores/useStore';
 
-import { useStoreStore } from '@/src/stores/useStoreStore';
-
-type StoreScreenRouteProp = RouteProp<{ store: { categoryCode: number } }, 'store'>;
+type StoreScreenRouteProp = RouteProp<{ store: { categoryCode?: number } }, 'store'>;
 
 const StoreScreen: React.FC = () => {
   const route = useRoute<StoreScreenRouteProp>();
   const navigation = useNavigation<StoreScreenNavigationProp>();
 
-  console.log(route, '--route---')
-  const { categoryCode } = route.params;
-  const { stores, loading, error, fetchStores } = useStoreStore((state) => state);
+  const categoryCode = route.params?.categoryCode;  // 기본값으로 undefined 허용
+  const { stores, loading, error, fetchStores } = useStore((state: any) => state);
 
   useEffect(() => {
     fetchStores(categoryCode);
@@ -40,7 +38,7 @@ const StoreScreen: React.FC = () => {
   return (
     <FlatList
       data={stores}
-      keyExtractor={(item) => item.key}
+      keyExtractor={(item) => item._id}
       renderItem={renderItem}
     />
   );

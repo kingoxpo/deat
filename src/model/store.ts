@@ -3,11 +3,12 @@ import settings from '@/config/settings';
 
 const API_URL = settings.apiUrl;;
 
-export const getStores = async (category: number) => {
+export const getStores = async (category?: number) => {
   try {
-    const response = await axios.get(`${API_URL}/app/stores`, { params: { category } });
+    const params = category !== undefined ? { category } : {};
+    const response = await axios.get(`${API_URL}/app/stores`, { params });
     return response.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
