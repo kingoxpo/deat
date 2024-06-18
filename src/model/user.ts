@@ -11,6 +11,17 @@ export const login = async (params: any) => {
   }
 };
 
+// 회원가입
+export const signUp = async (params: any) => {
+  try {
+    const re = await http.request('POST', `${API_URL}/app/stores/signup`, params);
+    console.log(re, 'rrrr');
+    return re.data;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const findId = async (params: any) => {
   try {
     return await http.request('GET', `${API_URL}/auth/member/findId`, params);

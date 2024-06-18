@@ -1,8 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
-
-import { useAuthStore } from '../stores/useAuth';
-
 import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/src/hooks/useColorScheme';
 import { ActivityIndicator, View } from 'react-native';
+import { useAuthStore } from '../stores/useAuth';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -54,10 +52,12 @@ export default function RootLayout() {
 
   return (
     <NativeBaseProvider>
-       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack initialRouteName="(tabs)">
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="StoreDetail" options={{ title: 'Store Details' }} />
+          <Stack.Screen name="login" options={{ title: 'Login' }} />
+          <Stack.Screen name="signup" options={{ title: 'Signup' }} />
           <Stack.Screen name="CreateMenu" options={{ title: 'Create Menu' }} />
           <Stack.Screen name="+not-found" options={{ title: 'Not Found' }} />
         </Stack>

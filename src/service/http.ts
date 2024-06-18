@@ -49,7 +49,7 @@ export const http = {
       result = await axios(requestData);
 
       if (result && ([200, 201].indexOf(result.status) === -1)) {
-        throw new Error('custom error');
+        throw new Error(result.data.message || 'Request failed');
       } else if (!result) {
         throw new Error('Request failed');
       }

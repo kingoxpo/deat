@@ -5,9 +5,9 @@ export interface HeaderProps {
 }
 
 export type AuthList = {
-  Login: undefined;
-  Home: undefined;
-  Signup: undefined;
+  login: undefined;
+  index: undefined;
+  signup: undefined;
 };
 
 export type Store = {
@@ -27,6 +27,8 @@ export type RootStackParamList = {
   favorites: undefined;
   orders: undefined;
   profile: undefined;
+  signup: any;
+  login: any;
 };
 
 export type MenuItem = {
