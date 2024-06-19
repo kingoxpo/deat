@@ -56,52 +56,40 @@ export const useAuthStore = create<AuthState>(
           await AsyncStorage.setItem('Token', result.data.token);
 
           // 결과 처리
-          set({
-            userInfo: {
-              user: result.data.user,
-              token: result.data.token,
-              loginStatus: 'LOGIN',
-              isLogout: false,
-            },
+          set((state: { userInfo: { user: any; token: any; loginStatus: string; isLogout: boolean; }; isLoggedIn: boolean; }) => {
+            state.userInfo.token = result.data.token;
+            state.userInfo.loginStatus = 'LOGIN';
+            state.userInfo.isLogout = false;
+            state.isLoggedIn = true;
           });
         } else {
-          throw result;
+          throw new Error('Login failed');
         }
       } catch (error: any) {
         // 로그인 실패시 토큰 제거
         await AsyncStorage.removeItem('Token');
-
-        // 로그인 페이지에서 온 경우 아니면 로그인 페이지 이동
-        if (!['/member/Login/', '/oauth/Login/'].includes(location.pathname)) {
-          Alert.alert('로그인 실패', `${error}\n로그인 페이지로 이동합니다.`, [
-            { text: 'OK', onPress: () => { /* Navigate to login page */ }},
-          ]);
-        }
-
-        set({
-          userInfo: {
-            user: error.data ? error.data.user : {},
-            token: '',
-            loginStatus: 'INIT',
-            isLogout: false,
-          },
+        set((state: { userInfo: { user: {}; token: string; loginStatus: string; isLogout: boolean; }; isLoggedIn: boolean; }) => {
+          state.userInfo.user = {};
+          state.userInfo.token = '';
+          state.userInfo.loginStatus = 'INIT';
+          state.userInfo.isLogout = false;
+          state.isLoggedIn = false;
         });
+        throw error;
       }
     },
     logout: async () => {
       try {
         await AsyncStorage.removeItem('Token');
-
-        set({
-          userInfo: {
-            user: {},
-            token: '',
-            loginStatus: 'INIT',
-            isLogout: true,
-          },
+        set((state: { userInfo: { user: {}; token: string; loginStatus: string; isLogout: boolean; }; isLoggedIn: boolean; }) => {
+          state.userInfo.user = {};
+          state.userInfo.token = '';
+          state.userInfo.loginStatus = 'INIT';
+          state.userInfo.isLogout = true;
+          state.isLoggedIn = false;
         });
       } catch (e) {
-        /** empty */
+        // Error handling
       }
     },
   }))

@@ -1,13 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const replaceNull = (obj: any) => {
+const replaceNull = (obj: any, visited = new Set()) => {
+  if (visited.has(obj)) return obj; // 순환 참조 방지
+  visited.add(obj);
+
   Object.keys(obj).forEach((key) => {
     if (obj[key] === null || obj[key] === undefined) {
       obj[key] = '';
     } else if (typeof obj[key] === 'string') {
       obj[key] = obj[key].replace(/(null|undefined)/gi, '');
     } else if (typeof obj[key] === 'object') {
-      replaceNull(obj[key]);
+      replaceNull(obj[key], visited);
     }
   });
   return obj;

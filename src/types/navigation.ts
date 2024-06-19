@@ -4,12 +4,6 @@ export interface HeaderProps {
   title: string;
 }
 
-export type AuthList = {
-  login: undefined;
-  index: undefined;
-  signup: undefined;
-};
-
 export type Store = {
   id: string;
   key: string;
@@ -17,16 +11,16 @@ export type Store = {
 }
 
 export type RootStackParamList = {
-  cart: undefined;
-  menu: undefined;
-  index: undefined;
+  cart: any;
+  menu: any;
+  index: any;
   store: any;
   StoreDetail: any;
   CreateMenu: any;
-  search: undefined;
-  favorites: undefined;
-  orders: undefined;
-  profile: undefined;
+  search: any;
+  favorites: any;
+  orders: any;
+  profile: any;
   signup: any;
   login: any;
 };

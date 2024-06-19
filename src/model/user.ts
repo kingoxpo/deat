@@ -5,7 +5,7 @@ const API_URL = settings.apiUrl;;
 // 로그인 확인
 export const login = async (params: any) => {
   try {
-    return await http.request('GET', `${API_URL}/auth/member/login`, params);
+    return await http.request('GET', `${API_URL}/app/stores/login`, params);
   } catch (err) {
     return err;
   }

@@ -3,29 +3,32 @@ import { Box, Button, Input, Text, VStack, FormControl, WarningOutlineIcon } fro
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '@/src/contexts/AuthContext';
 import { RootStackParamList } from '@/src/types/navigation';
+import * as userModel from '../model/user';
 import { useRouter } from 'expo-router';
+import { useAuthStore } from '../stores/useAuth';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'login'>;
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const router = useRouter();
 
-  const { login } = useAuth();
+  const { checkLogin, userInfo, logout } = useAuthStore((state: { userInfo: any; login: any; logout: any; }) => ({
+    userInfo: state.userInfo,
+    checkLogin: state.login,
+    logout: state.logout
+  }));
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    // navigation 객체가 올바르게 전달되었는지 확인
-    console.log('Navigation:', navigation);
-  }, [navigation]);
+  const handleLogin = async () => {
+    try {
+    await checkLogin({ email, password });
+      console.log(checkLogin, '--checkLogin---');
+      console.log(userInfo, '--userInfo---');
 
-  const handleLogin = () => {
-    // 여기에 인증 로직을 추가하세요.
-    if (email === 'test@example.com' && password === 'password') {
-      login();
-      navigation.navigate('index'); // 로그인 성공 후 홈 화면으로 이동
-    } else {
+      router.replace('/')
+    } catch (err) {
       setError('Invalid email or password');
     }
   };
