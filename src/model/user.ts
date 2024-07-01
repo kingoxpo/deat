@@ -1,11 +1,26 @@
 import settings from '@/config/settings';
+import client from '../apollo-client';
 import { http } from '../service/http';
-const API_URL = settings.apiUrl;;
+import { gql } from '@apollo/client';
+const API_URL = settings.apiUrl;
 
 // 로그인 확인
 export const login = async (params: any) => {
   try {
-    return await http.request('GET', `${API_URL}/app/stores/login`, params);
+    const { data } = await client.mutate({
+      mutation: gql`
+        mutation Login($loginInput: LoginInput!) {
+          login(loginInput: $loginInput) {
+            success
+            token
+          }
+        }
+      `,
+      variables: {
+        loginInput: params,
+      },
+    });
+    return data.login;
   } catch (err) {
     return err;
   }
@@ -14,13 +29,44 @@ export const login = async (params: any) => {
 // 회원가입
 export const signUp = async (params: any) => {
   try {
-    const re = await http.request('POST', `${API_URL}/app/stores/signup`, params);
-    console.log(re, 'rrrr');
-    return re.data;
+    const { data } = await client.mutate({
+      mutation: gql`
+        mutation Register($authDto: AuthDto!) {
+          register(authDto: $authDto) {
+            email
+            token
+          }
+        }
+      `,
+      variables: {
+        authDto: params,
+      },
+    });
+    return data.register;
   } catch (err) {
+    console.error(err);
     return err;
   }
 };
+// // 로그인 확인
+// export const login = async (params: any) => {
+//   try {
+//     return await http.request('POST', `${API_URL}/app/auth/login`, params);
+//   } catch (err) {
+//     return err;
+//   }
+// };
+
+// // 회원가입
+// export const signUp = async (params: any) => {
+//   try {
+//     const re = await http.request('POST', `${API_URL}/app/auth/signup`, params);
+//     console.log(re, 'rrrr');
+//     return re.data;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
 export const findId = async (params: any) => {
   try {

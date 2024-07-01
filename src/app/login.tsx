@@ -23,15 +23,22 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-    await checkLogin({ email, password });
-      console.log(checkLogin, '--checkLogin---');
-      console.log(userInfo, '--userInfo---');
-
-      router.replace('/')
+      await checkLogin({ email, password });
+      router.replace('/');
     } catch (err) {
       setError('Invalid email or password');
     }
   };
+
+  // 로그인 체크
+  useEffect(() => {
+    if (userInfo.loginStatus === 'LOGIN') {
+      if (userInfo.token) {
+        router.replace('/');
+      }
+    }
+
+  }, [userInfo.loginStatus, userInfo.token, userInfo.user]);
 
   return (
     <Box flex={1} p={4} justifyContent="center">

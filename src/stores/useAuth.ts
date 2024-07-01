@@ -51,13 +51,13 @@ export const useAuthStore = create<AuthState>(
       try {
         const result: any = await userModel.login(params);
 
-        if (result.data && result.data.token) {
+        if (result.success && result.token) {
           // AsyncStorage에 토큰 저장
-          await AsyncStorage.setItem('Token', result.data.token);
+          await AsyncStorage.setItem('Token', result.token);
 
           // 결과 처리
           set((state: { userInfo: { user: any; token: any; loginStatus: string; isLogout: boolean; }; isLoggedIn: boolean; }) => {
-            state.userInfo.token = result.data.token;
+            state.userInfo.token = result.token;
             state.userInfo.loginStatus = 'LOGIN';
             state.userInfo.isLogout = false;
             state.isLoggedIn = true;
